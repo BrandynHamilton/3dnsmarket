@@ -3,8 +3,8 @@ import requests
 
 app = Flask(__name__)
 
-def fetch_offers():
-    url = "https://api.opensea.io/api/v2/offers/collection/3dns-powered-domains/all"
+def fetch_listings():
+    url = "https://api.opensea.io/api/v2/listings/collection/3dns-powered-domains/all"
     headers = {
         "accept": "application/json",
         "x-api-key": "95487450cabd40c880636b6ddefcc807"  # Replace with your actual API key
@@ -13,24 +13,23 @@ def fetch_offers():
         "limit": 100
     }
 
-    offers = []
-    while True:
+    listings = []
         response = requests.get(url, headers=headers, params=params)
         data = response.json()
         
-        offers.extend(data.get("offers", []))
+        listings.extend(data.get("listings", []))
         
         next_cursor = data.get("next", None)
         if not next_cursor:
             break
         params["cursor"] = next_cursor  # Update the cursor for the next page
 
-    return offers
+    return listings
 
-@app.route('/offers', methods=['GET'])
-def get_offers():
-    offers = fetch_offers()  # Fetch offers each time the endpoint is accessed
-    return jsonify(offers)
+@app.route('/listings', methods=['GET'])
+def get_listings():
+    listings = fetch_listings()  # Fetch offers each time the endpoint is accessed
+    return jsonify(listings)
 
 if __name__ == '__main__':
     app.run(debug=True)
