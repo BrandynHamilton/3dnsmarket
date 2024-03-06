@@ -2,14 +2,15 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/3dns_data.py",
+      "src": "/api/3dns_data.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/api/3dns_data.py"
+      "src": "/api/listings",
+      "dest": "/api/3dns_data.py",
+      "methods": ["GET"]
     }
   ]
 }

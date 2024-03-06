@@ -41,7 +41,7 @@ def fetch_listings(api_key, delay_between_requests=1):
     print(f"Total listings fetched: {len(listings)}")
     
     # Optionally, save the fetched listings to a file
-    with open('listings.json', 'w') as f:
+    with open('../listings.json', 'w') as f:
         json.dump(listings, f)
 
 # Replace 'your_api_key' with your actual OpenSea API key
