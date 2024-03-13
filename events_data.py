@@ -6,7 +6,7 @@ import streamlit as st
 
 opensea_api_key = os.getenv('opensea_api_key')
 
-@st.cache_data()
+@st.cache_data(ttl=86400)
 def fetch_event_type(api_key, event_type, all_events, params, headers):
     base_url = f"https://api.opensea.io/api/v2/events/collection/3dns-powered-domains"
     params['event_type'] = event_type  # Update event_type in params for each call
@@ -32,7 +32,7 @@ def fetch_event_type(api_key, event_type, all_events, params, headers):
             print(f"Failed to fetch {event_type} data: HTTP {response.status_code}, Response: {response.text}")
             break
 
-@st.cache_data()
+@st.cache_data(ttl=86400)
 def fetch_all_events(api_key, output_file='all_events.json'):
     headers = {
         "accept": "application/json",

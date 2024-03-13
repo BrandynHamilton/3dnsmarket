@@ -6,7 +6,7 @@ import os
 
 opensea_api_key = os.getenv('opensea_api_key')
 
-@st.cache_data()
+@st.cache_data(ttl=86400)
 def fetch_listings(api_key, delay_between_requests=1):
     base_url = "https://api.opensea.io/api/v2/listings/collection/3dns-powered-domains/all"
     headers = {
@@ -52,7 +52,7 @@ def fetch_listings(api_key, delay_between_requests=1):
 # Replace 'your_api_key' with your actual OpenSea API key
 fetch_listings(api_key= opensea_api_key, delay_between_requests=1)
 
-@st.cache_data()
+@st.cache_data(ttl=86400)
 def fetch_all_descriptions(api_key, descriptions_file='all_descriptions.json', delay_between_requests=1):
     base_url = "https://api.opensea.io/api/v2/collection/3dns-powered-domains/nfts"
     headers = {
