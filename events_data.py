@@ -9,7 +9,7 @@ opensea_api_key = os.getenv('opensea_api_key')
 @st.cache_data(ttl=86400)
 def fetch_event_type(api_key, event_type, all_events, params, headers):
     base_url = f"https://api.opensea.io/api/v2/events/collection/3dns-powered-domains"
-    params['event_type'] = event_type  # Update event_type in params for each call
+    params['event_type'] = event_type  
     
     page_count = 0
     while True:
@@ -25,9 +25,9 @@ def fetch_event_type(api_key, event_type, all_events, params, headers):
             if next_cursor:
                 params['next'] = next_cursor
             else:
-                break  # Exit loop if there's no next cursor
+                break  
 
-            time.sleep(1)  # Be mindful of rate limits
+            time.sleep(1)  
         else:
             print(f"Failed to fetch {event_type} data: HTTP {response.status_code}, Response: {response.text}")
             break
@@ -39,7 +39,7 @@ def fetch_all_events(api_key, output_file='all_events.json'):
         "x-api-key": api_key
     }
     params = {
-        "limit": 50  # Adjust based on the maximum limit supported by the API
+        "limit": 50  
     }
 
     all_events = []
@@ -57,5 +57,5 @@ def fetch_all_events(api_key, output_file='all_events.json'):
     print(f"Total events fetched: {len(all_events)}")
     print(f"Events data saved to '{output_file}'.")
 
-# Replace 'your_api_key_here' with your actual OpenSea API key
+
 fetch_all_events(api_key= opensea_api_key)

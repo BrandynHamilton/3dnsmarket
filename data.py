@@ -3,6 +3,7 @@ import json
 import time
 from flipside import Flipside
 import os
+import streamlit as st
 
 opensea_api_key = os.getenv('opensea_api_key')
 
@@ -13,7 +14,7 @@ def fetch_listings(api_key, delay_between_requests=1):
         "accept": "application/json",
         "x-api-key": api_key
     }
-    params = {"limit": 100}  # Start with the first page of 100 listings
+    params = {"limit": 100} 
 
     listings = []
     page_count = 0
@@ -45,11 +46,10 @@ def fetch_listings(api_key, delay_between_requests=1):
     print(f"Total pages fetched: {page_count}")
     print(f"Total listings fetched: {len(listings)}")
     
-    # Optionally, save the fetched listings to a file
+    # Save the fetched listings to a file
     with open('listings.json', 'w') as f:
         json.dump(listings, f)
 
-# Replace 'your_api_key' with your actual OpenSea API key
 fetch_listings(api_key= opensea_api_key, delay_between_requests=1)
 
 @st.cache_data(ttl=86400)
@@ -99,7 +99,6 @@ def fetch_all_descriptions(api_key, descriptions_file='all_descriptions.json', d
     with open(descriptions_file, 'w') as f:
         json.dump(all_descriptions, f)
 
-# Replace 'your_api_key' with your actual OpenSea API key
 fetch_all_descriptions(api_key= opensea_api_key)
 
 
